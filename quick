@@ -1,0 +1,98 @@
+//////////////////////퀵정렬
+
+/*
+#include<stdio.h>
+#include<math.h>int size,i=0;int partition(int a[],int begin,int end)
+{
+ int pivot,temp,L,R,t;
+ L=begin;
+ R=end;
+ pivot=(int)floor((begin+end)/2);
+ printf("\n[%d단계:pivot=%d]\n",++i,a[pivot]);
+ while(L<R)
+ {
+  while ((a[L]<=a[pivot])&&(L<=R)) L++;
+  while ((a[R]>a[pivot])&&(L<=R)) R--;
+  if(L<=R)
+  {
+   temp=a[L];
+   a[L]=a[R];
+   a[R]=temp;   if(R==pivot)
+   {
+    for(t=0;t<size;t++) printf("%4d",a[t]);
+     printf("\n");
+     return L;
+    }
+   }
+  }  temp=a[pivot];
+  a[pivot]=a[R];
+  a[R]=temp;
+  for(t=0;t<size;t++) printf("%4d",a[t]);
+  printf("\n");
+  return R;
+}void quicksort(int a[],int begin,int end)
+{
+ if(begin<end){
+  int p;
+  p=partition(a,begin,end);
+  quicksort(a,begin,p-1);
+  quicksort(a,p+1,end);
+ }
+}
+void main()
+{
+ int list[8]={3,46,21,87,95,0,34,1};
+ size=8;
+ quicksort(list,0,size-1);
+ getchar();
+}
+*/
+
+
+////////////////////////병합정렬#include<stdio.h>
+#define MAX 30int size;
+int sorted[MAX];void merge(int a[],int m,int middle,int n)
+{
+ int i,j,k,t;
+ i=m;
+ j=middle+1;
+ k=m; while(i<=middle&&j<=n){
+  if(a[i]<=a[j]){
+   sorted[k]=a[i];
+   i++;
+  }
+  else{
+   sorted[k]=a[j];
+   j++;
+  }
+  k++;
+ }
+ if(i>middle) for(t=j;t<=n;t++,k++) sorted[k]=a[t];
+ else for(t=i;t<=middle;t++,k++) sorted[k]=a[t];
+ for(t=m;t<=n;t++) a[t]=sorted[t];
+ printf("\n 병렬 정렬>>");
+ for(t=0;t<size;t++) printf("%4d",a[t]);
+}
+ void mergesort(int a[],int m,int n)
+ {
+  int middle;
+  if(m<n)
+  {
+   middle=(m+n)/2;
+   mergesort(a,m,middle);
+   mergesort(a,middle+1,n);
+   merge(a,m,middle,n);
+  }
+ }void main()
+{
+ int t;
+ int list[8]={2,30,40,1,8,10,6,22};
+ size=8;
+ printf("\n 입력 원소>>");
+ for(t=0;t<size;t++) printf("%4d",list[t]);
+ 
+ printf("\n\n<<<<<<<<< 병합 정렬 수행 >>>>>>>>>>\n");
+ mergesort(list,0,size-1);
+ 
+ getchar();
+ }
